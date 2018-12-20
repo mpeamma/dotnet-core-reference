@@ -1,4 +1,4 @@
 .vscode/**
-Migrations/**
+src/Migrations/**
 bin/**
 obj/**

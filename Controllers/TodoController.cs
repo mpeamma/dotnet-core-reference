@@ -4,32 +4,30 @@ using System.Linq;
 using TodoApi.Core;
 using TodoApi.Models;  
 using TodoApi.Repositories;
+using TodoApi.Services;
 
 namespace TodoApi.Controllers { 
 
     [Route("api/[controller]")]     
     [ApiController]     
     public class TodoController : ControllerBase     
-    {        
-        private readonly BaseContext _context;          
-        private readonly IRepository<TodoItem> _todoRepository;
+    {
+        private readonly ITodoService _todoService;
 
-        public TodoController(IRepository<TodoItem> todoRepository, BaseContext context)         
+        public TodoController(ITodoService todoService)         
         {      
-            _todoRepository = todoRepository;
-            _context = context;    
+            _todoService = todoService;
         }
         [HttpGet] 
         public ActionResult<List<TodoItem>> GetAll() 
         {     
-            return _context.TodoItems.ToList(); 
+            return _todoService.GetAll().ToList();
         } 
         
         [HttpGet("{id}", Name = "GetTodo")] 
         public ActionResult<TodoItem> GetById(long id) 
-        {    
-            //var item = _context.TodoItems.Find(id);     
-            var item = _todoRepository.GetById(id);
+        { 
+            var item = _todoService.GetById(id);
             if (item == null)    
             {         
                 return NotFound();     
@@ -40,9 +38,7 @@ namespace TodoApi.Controllers {
         [HttpPost("")]
         public ActionResult<TodoItem> Create(TodoItem item) 
         {
-            _context.Add(item);
-            _context.SaveChanges();
-            return item;
+            return _todoService.CreateTodo(item);
         }         
     } 
 }

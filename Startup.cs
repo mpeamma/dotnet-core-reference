@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using TodoApi.Models;
 using TodoApi.Core;
 using TodoApi.Repositories;
+using TodoApi.Services;
 
 namespace TodoApi
 {
@@ -39,6 +40,7 @@ namespace TodoApi
             containerBuilder.Populate(services);
             //containerBuilder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>));
             containerBuilder.RegisterType<Repository<TodoItem>>().As<IRepository<TodoItem>>();
+            containerBuilder.RegisterType<TodoService>().As<ITodoService>();
 
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);

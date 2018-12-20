@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using TodoApi.Core;
 
@@ -13,9 +14,21 @@ namespace TodoApi.Repositories
             _context = context;
             _dbSet = context.Set<T>();
         }
+
+        public IEnumerable<T> GetAll()
+        {
+            return _dbSet.ToList();
+        }
+
         public T GetById(long id)
         {
             return _dbSet.Find(new object[] { id });
+        }
+
+        public T Insert(T item) 
+        {
+            _dbSet.Add(item);
+            return item;
         }
     }
 }

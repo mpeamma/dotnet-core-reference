@@ -5,6 +5,7 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <RuntimeIdentifiers>ubuntu-x64</RuntimeIdentifiers>
+    <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest> 
   </PropertyGroup>
 
   <ItemGroup>
